@@ -932,8 +932,8 @@ start-demo:
 
   export UNSTABLE=true
   export UNSTABLE_LIB=true
-  export USE_ENCRYPTION=true
-  export USE_DECRYPTION=true
+  export USE_ENCRYPTION=false
+  export USE_DECRYPTION=false
   export USE_NODE_CONFIG_BP=false
   export USE_CREATE_TESTNET_DATA=false
   export DEBUG=true
