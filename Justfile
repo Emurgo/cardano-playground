@@ -968,7 +968,7 @@ start-demo:
   NODE_CONFIG="$DATA_DIR/node-config.json" \
     NODE_TOPOLOGY="$DATA_DIR/topology.json" \
     SOCKET_PATH="$STATEDIR/node-demo.socket" \
-    nohup setsid nix run .#run-cardano-node &> "$STATEDIR/node-demo.log" & echo $! > "$STATEDIR/node-demo.pid" &
+    setsid nix run .#run-cardano-node &> "$STATEDIR/node-demo.log" & echo $! > "$STATEDIR/node-demo.pid"
   just set-default-cardano-env demo "" "$PPID"
   echo "Sleeping 30 seconds until $(date -d  @$(($(date +%s) + 30)))"
   sleep 30
