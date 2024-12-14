@@ -9,10 +9,10 @@ RUN touch /etc/nix/nix.conf
 RUN echo "donotUnpack = true" > /etc/nix/nix.conf && echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf && echo "allow-import-from-derivation = true" >> /etc/nix/nix.conf && echo "extra-experimental-features = fetch-closure" >> /etc/nix/nix.conf
 RUN mkdir /opt
 RUN mkdir /opt/cardano
-WORKDIR /opt/cardano
 RUN cat /etc/nix/nix.conf
-RUN git clone https://github.com/Emurgo/cardano-playground.git
-RUN cd cardano-playground
+RUN ls -l
+RUN cd /opt/cardano && git clone https://github.com/Emurgo/cardano-playground.git
+WORKDIR /opt/cardano/cardano-playground
 RUN nix build  --accept-flake-config .#cardano-cli-ng -o cardano-cli-ng-build
 RUN nix build  --accept-flake-config .#cardano-node-ng -o cardano-node-ng-build
 RUN nix build  --accept-flake-config .#cardano-node -o cardano-node-build
