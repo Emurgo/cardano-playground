@@ -967,8 +967,8 @@ start-demo:
   echo "Start cardano-node in the background. Run \"just stop-node demo\" to stop"
   NODE_CONFIG="$DATA_DIR/node-config.json" \
     NODE_TOPOLOGY="$DATA_DIR/topology.json" \
-    SOCKET_PATH="$STATEDIR/node-demo.socket" \
-    setsid nix run .#run-cardano-node > "/opt/cardano/cardano-playground/node-demo.log" & echo $! > "/opt/cardano/cardano-playground/node-demo.pid"
+    SOCKET_PATH="/opt/cardano/cardano-playground/node-demo.socket" \
+    nix run .#run-cardano-node > "/opt/cardano/cardano-playground/node-demo.log" & echo $! > "/opt/cardano/cardano-playground/node-demo.pid"
   just set-default-cardano-env demo "" "$PPID"
   echo "Sleeping 30 seconds until $(date -d  @$(($(date +%s) + 30)))"
   sleep 30
