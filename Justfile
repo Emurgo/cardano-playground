@@ -984,7 +984,7 @@ start-demo:
   NODE_CONFIG="$DATA_DIR/node-config.json" \
     NODE_TOPOLOGY="$DATA_DIR/topology.json" \
     SOCKET_PATH="$STATEDIR/node-demo.socket" \
-    nix run .#run-cardano-node > "$STATEDIR/node-demo.log" & echo $! > "$STATEDIR/node-demo.pid" &
+    nix run .#run-cardano-node
   just set-default-cardano-env demo "" "$PPID"
   echo "Sleeping 30 seconds until $(date -d  @$(($(date +%s) + 30)))"
   sleep 30
@@ -999,7 +999,6 @@ start-demo:
     sleep 7
     echo
   fi
-
   echo "Registering stake pools..."
   POOL_RELAY=demo.local \
     POOL_RELAY_PORT=3001 \
