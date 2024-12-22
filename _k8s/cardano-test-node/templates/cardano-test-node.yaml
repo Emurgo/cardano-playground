@@ -21,8 +21,11 @@ spec:
           value: test
         - name: PORT
           value: "3001"
-        volumes:
-        - name: ipc
+        volumeMounts:
+          - name: ipc
+            mountPath: /root/.local/share/cardano-playground.git
+      volumes:
+        - name: testnodeipc
           persistentVolumeClaim:
             claimName: ipc
     
