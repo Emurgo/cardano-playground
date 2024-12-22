@@ -21,6 +21,10 @@ spec:
           value: test
         - name: PORT
           value: "3001"
+        volumes:
+        - name: ipc
+          persistentVolumeClaim:
+            claimName: ipc
     
       imagePullSecrets:
         - name: regcred
