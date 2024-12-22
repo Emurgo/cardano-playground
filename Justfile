@@ -684,14 +684,16 @@ set-default-cardano-env ENV TESTNET_MAGIC=null PPID=null:
   {{checkEnv}}
   {{stateDir}}
   # The log and socket file may not exist immediately upon node startup, so only check for the pid file
-  if ! [ -s "$STATEDIR/node-{{ENV}}.pid" ]; then
-    echo "Environment {{ENV}} does not appear to be running as $STATEDIR/node-{{ENV}}.pid does not exist"
-    exit 1
-  fi
+  #if ! [ -s "$STATEDIR/node-{{ENV}}.pid" ]; then
+  #  echo "Environment {{ENV}} does not appear to be running as $STATEDIR/node-{{ENV}}.pid does not exist"
+  #  exit 1
+  #fi
 
   echo "Linking: $(ln -sfv "$STATEDIR/node-{{ENV}}.socket" node.socket)"
-  echo "Linking: $(ln -sfv "$STATEDIR/node-{{ENV}}.log" node.log)"
+  #echo "Linking: $(ln -sfv "$STATEDIR/node-{{ENV}}.log" node.log)"
   echo
+  ls -ltr /root/.local/share
+  ls -ltr
 
   if [ -n "{{PPID}}" ]; then
     PARENTID="{{PPID}}"
@@ -984,8 +986,9 @@ start-demo:
   NODE_CONFIG="$DATA_DIR/node-config.json" \
     NODE_TOPOLOGY="$DATA_DIR/topology.json" \
     SOCKET_PATH="$STATEDIR/node-demo.socket" \
-    nix run .#run-cardano-node
+    nix run .#run-cardano-node &
   just set-default-cardano-env demo "" "$PPID"
+  echo "Linking: $(ln -sfv "$STATEDIR/node-demo.socket" node.socket)"
   echo "Sleeping 30 seconds until $(date -d  @$(($(date +%s) + 30)))"
   sleep 30
   echo
@@ -999,6 +1002,7 @@ start-demo:
     sleep 7
     echo
   fi
+
   echo "Registering stake pools..."
   POOL_RELAY=demo.local \
     POOL_RELAY_PORT=3001 \
