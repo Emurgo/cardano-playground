@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cardano-test-node
+  namespace: cardano-test-node
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cardano-test-node
+  template:
+    metadata:
+      labels:
+        app: cardano-test-node
+    spec:
+      containers:
+      - name: cardano-test-node
+        image: '{{ .Values.imageBasePath }}/cardano-test-node:${{ custom.version }}'
+        env:
+        - name: NETWORK
+          value: test
+        - name: PORT
+          value: "3001"
+    
+      imagePullSecrets:
+        - name: regcred
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cardano-test-node
+  namespace: cardano-test-node
+spec:
+  selector:
+    app: cardano-test-node
+  ports:
+  - name: http
+    port: 3000
+    targetPort: 3000
+  type: NodePort
