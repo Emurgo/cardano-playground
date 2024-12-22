@@ -1,3 +1,3 @@
 apiVersion: v2
-name: yoroi-backend-zero
+name: cardano-test-node
 version: ${{ custom.version }}
