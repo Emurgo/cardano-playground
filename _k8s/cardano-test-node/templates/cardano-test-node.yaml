@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cardano-test-node
-  namespace: cardano-test-node
+  name: cardano-node-local
+  namespace: cardano-node-{{ .Values.network }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cardano-test-node
+      app: cardano-node-{{ .Values.network }}
   template:
     metadata:
       labels:
-        app: cardano-test-node
+        app: cardano-node-{{ .Values.network }}
     spec:
       containers:
-      - name: cardano-test-node
+      - name: cardano-node-local
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         env:
         - name: NETWORK
-          value: test
+          value: "{{ .Values.network }}"
         - name: PORT
           value: "3001"
         volumeMounts:
@@ -35,11 +35,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cardano-test-node
-  namespace: cardano-test-node
+  name: cardano-node-local
+  namespace: cardano-node-{{ .Values.network }}
 spec:
   selector:
-    app: cardano-test-node
+    app: cardano-node-local
   ports:
   - name: http
     port: 3001
