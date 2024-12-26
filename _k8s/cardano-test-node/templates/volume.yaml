@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: ipc
-  namespace: cardano-node-{{ .Values.network }}
+  namespace: cardano-node-local-testnet
 spec:
   accessModes:
     - ReadWriteOnce
