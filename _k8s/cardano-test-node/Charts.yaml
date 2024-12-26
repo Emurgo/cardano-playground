@@ -1,3 +1,3 @@
 apiVersion: v2
-name: cardano-test-node
+name: cardano-node-local
 version: ${{ custom.version }}
